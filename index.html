@@ -1,41 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" x-data :class="$store.Globals.lightMode ? 'light' : 'dark'">
+<html lang="en" x-data="{lightMode: false}" :class="lightMode ? 'light' : 'dark'">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link href="dist/output.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
     <title>Todo app | Kevin de Bie</title>
 </head>
 
-<body class="flex flex-col min-h-screen bg-lightgray dark:bg-darkestblue dark:text-white">
-    <main class="flex-1">
-        <div x-data class="flex justify-between">
+<body x-data="AddTodo"
+      class="flex flex-col min-h-screen bg-light_lightgray dark:bg-darkestblue dark:text-grayblue">
+    <header class="py-12 px-6 bg-cover bg-[url('../images/bg-mobile-light.jpg')] dark:bg-[url('../images/bg-mobile-dark.jpg')]">
+        <div x-data class="flex justify-between items-center mb-8">
             <h1>Todo</h1>
-            <button @click="$store.Globals.lightMode =! $store.Globals.lightMode">
+            <button @click="lightMode =! lightMode">
                 <svg class="fill-white w-6 h-6" viewbox="0 0 26 26">
-                    <use x-show="!$store.Globals.lightMode" href="images/icon-sun.svg#icon-sun"></use>
-                    <use x-show="$store.Globals.lightMode" href="images/icon-moon.svg#icon-moon"></use>
+                    <use x-show="!lightMode" href="images/icon-sun.svg#icon-sun"></use>
+                    <use x-show="lightMode" href="images/icon-moon.svg#icon-moon"></use>
                 </svg>
             </button>
         </div>
 
-        <div x-data="AddTodo">
-            <input type="text" value="Create a new todo..."
-                   class="p-3 rounded-lg">
+        <!-- Add item -->
+        <input type="text" placeholder="Create a new todo..." @keydown.enter="addTodo()" x-model="newTodo"
+               class="w-full py-3 px-5 rounded-lg dark:bg-darkblue placeholder:text-grayblue focus:text-lightestblue">
+    </header>
+
+    <main class="flex-1">
+        <div class="px-6">
+            <div class="rounded-lg bg-white -mt-8 dark:bg-darkblue">
+                <div>
+                    <template x-for="(todo, index) in todoItems" :key="index">
+                            <div class="py-4 px-5 border-b border-grayblue flex justify-between items-center">
+                                <span x-text="todo.text"></span>
+                                <button @click="removeTodo(index)">
+                                    <svg class="dark:fill-grayblue w-4 h-4" viewbox="0 0 18 18">
+                                        <use href="images/icon-cross.svg#icon-cross"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                    </template>
+
+                    <template x-if="todoItems.length === 0">
+                        <p class="py-8 px-5 border-b border-grayblue text-center">No todo items added.</p>
+                    </template>
+                </div>
+
+                <div class="flex justify-between text-sm font-semibold py-4 px-5">
+                    <div>
+                        <span x-text="todoItems.length"></span> items <span x-show="todoItems.length >= 1">left</span>
+                    </div>
+                    <div>
+                        <button>Clear completed</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-4 py-3 px-6 rounded-lg bg-white my-4 dark:bg-darkblue">
+                <span>All</span>
+                <span>Active</span>
+                <span>Completed</span>
+            </div>
+
+            <p class="text-center py-8 font-semibold">
+                Drag and drop to reorder list
+            </p>
         </div>
-    
-        <!-- Add dynamic number --> items left
-    
-        All
-        Active
-        Completed
-    
-        Clear Completed
-    
-        Drag and drop to reorder list
     </main>
     
     <footer>

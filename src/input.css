@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        font-size: 18px;
+    }
+
+    h1 {
+        @apply uppercase text-3xl font-semibold tracking-widest text-white;
+    }
+}

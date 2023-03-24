@@ -3113,21 +3113,31 @@ var src_default = alpine_default;
 // packages/alpinejs/builds/module.js
 var module_default = src_default;
 
-var globals = {
-    lightMode: false,
-
-    toggleLightMode() {
-        this.lightMode = true;
-
-    }
-};
-
 var addTodo = () => ({
+    todoItems: [],
+    newTodo: '',
 
+    init() {
+        console.log(this.todoItems);
+    },
+
+    addTodo() {
+        this.todoItems.push({
+            text: this.newTodo,
+            completed: false
+        });
+
+        this.newTodo = '';
+    },
+
+    removeTodo(index) {
+        this.todoItems = this.todoItems.filter((todo, todoIndex) => {
+            return index !== todoIndex
+        });
+    },
 });
 
 document.addEventListener('alpine:init', () => {
-    module_default.store('Globals', globals );
     module_default.data('AddTodo', addTodo );
 });
 
