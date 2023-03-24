@@ -3113,6 +3113,24 @@ var src_default = alpine_default;
 // packages/alpinejs/builds/module.js
 var module_default = src_default;
 
+var globals = {
+    lightMode: false,
+
+    toggleLightMode() {
+        this.lightMode = true;
+
+    }
+};
+
+var addTodo = () => ({
+
+});
+
+document.addEventListener('alpine:init', () => {
+    module_default.store('Globals', globals );
+    module_default.data('AddTodo', addTodo );
+});
+
 window.Alpine = module_default;
 
 module_default.start();

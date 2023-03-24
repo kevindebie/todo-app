@@ -1,34 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data :class="$store.Globals.lightMode ? 'light' : 'dark'">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-  <link href="dist/output.css" rel="stylesheet">
-  
-  <title>Todo app | Kevin de Bie</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link href="dist/output.css" rel="stylesheet">
+
+    <title>Todo app | Kevin de Bie</title>
 </head>
 
-<body class="flex flex-col min-h-screen">
-  <main class="flex-1">
-    <h1>Todo</h1>
+<body class="flex flex-col min-h-screen bg-lightgray dark:bg-darkestblue dark:text-white">
+    <main class="flex-1">
+        <div x-data class="flex justify-between">
+            <h1>Todo</h1>
+            <button @click="$store.Globals.lightMode =! $store.Globals.lightMode">
+                <svg class="fill-white w-6 h-6" viewbox="0 0 26 26">
+                    <use x-show="!$store.Globals.lightMode" href="images/icon-sun.svg#icon-sun"></use>
+                    <use x-show="$store.Globals.lightMode" href="images/icon-moon.svg#icon-moon"></use>
+                </svg>
+            </button>
+        </div>
 
-    <!-- Add dynamic number --> items left
+        <div x-data="AddTodo">
+            <input type="text" value="Create a new todo..."
+                   class="p-3 rounded-lg">
+        </div>
+    
+        <!-- Add dynamic number --> items left
+    
+        All
+        Active
+        Completed
+    
+        Clear Completed
+    
+        Drag and drop to reorder list
+    </main>
+    
+    <footer>
+        <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by Kevin de Bie</a>.</p>
+    </footer>
 
-    All
-    Active
-    Completed
-
-    Clear Completed
-
-    Drag and drop to reorder list
-  </main>
-
-  <footer>
-      <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by Kevin de Bie</a>.</p>
-  </footer>
-
-  <script defer type="module" src="dist/bundle.js"></script>
+<script defer type="module" src="dist/bundle.js"></script>
 </body>
 </html>
