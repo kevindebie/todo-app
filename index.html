@@ -14,7 +14,7 @@
 </head>
 
 <body x-data="AddTodo"
-      class="flex flex-col min-h-screen bg-light_lightgray dark:bg-darkestblue dark:text-grayblue">
+      class="flex flex-col min-h-screen bg-light_lightgray text-light_grayblue dark:bg-darkestblue dark:text-grayblue">
     <header class="py-12 px-6 bg-cover bg-[url('../images/bg-mobile-light.jpg')] dark:bg-[url('../images/bg-mobile-dark.jpg')]">
         <div x-data class="flex justify-between items-center mb-8">
             <h1>Todo</h1>
@@ -28,7 +28,7 @@
 
         <!-- Add item -->
         <input type="text" placeholder="Create a new todo..." @keydown.enter="addTodo()" x-model="newTodo"
-               class="w-full py-3 px-5 rounded-lg dark:bg-darkblue placeholder:text-grayblue focus:text-lightestblue">
+               class="w-full py-3 px-5 rounded-lg dark:bg-darkblue dark:placeholder:text-grayblue dark:focus:text-lightblue">
     </header>
 
     <main class="flex-1">
@@ -36,10 +36,21 @@
             <div class="rounded-lg bg-white -mt-8 dark:bg-darkblue">
                 <div>
                     <template x-for="(todo, index) in todoItems" :key="index">
-                            <div class="py-4 px-5 border-b border-grayblue flex justify-between items-center">
-                                <span x-text="todo.text"></span>
+                            <div class="py-4 px-5 border-b border-light_lightergrayblue flex justify-between items-center gap-4 dark:text-lightblue dark:border-grayblue">
+                                <div @click="completeTodo(index)"
+                                     class="group flex items-center gap-4">
+                                    <span class="box inline-flex justify-center items-center w-6 h-6 rounded-full cursor-pointer relative hover:border-gradient
+    before:absolute before:top-0 before:left-0 before:block before:w-full before:h-full before:rounded-full before:bg-light_lightergrayblue before:duration-150 dark:before:bg-grayblue group-hover:before:bg-gradient-to-r group-hover:before:from-brightblue group-hover:before:to-purple
+    after:absolute after:top-[1px] after:left-[1px] after:block after:w-[calc(100%-2px)] after:h-[calc(100%-2px)] after:rounded-full after:bg-white after:duration-150 dark:after:bg-darkblue"
+                                          :class="todo.completed ? 'before:bg-gradient-to-r before:from-brightblue before:to-purple after:opacity-0' : ''">
+                                        <svg x-show="todo.completed" class="w-3 h-3 stroke-white z-10 duration-150" viewbox="0 0 11 9">
+                                            <use href="images/icon-check.svg#icon-check"></use>
+                                        </svg>
+                                    </span>
+                                    <span x-text="todo.text" class="mr-auto cursor-pointer" :class="todo.completed ? 'line-through text-light_lightergrayblue dark:text-grayblue' : 'text-light_darkergrayblue dark:text-lightblue'"></span>
+                                </div>
                                 <button @click="removeTodo(index)">
-                                    <svg class="dark:fill-grayblue w-4 h-4" viewbox="0 0 18 18">
+                                    <svg class="w-4 h-4 duration-150 dark:fill-grayblue hover:dark:fill-lightblue" viewbox="0 0 18 18">
                                         <use href="images/icon-cross.svg#icon-cross"></use>
                                     </svg>
                                 </button>
@@ -47,16 +58,16 @@
                     </template>
 
                     <template x-if="todoItems.length === 0">
-                        <p class="py-8 px-5 border-b border-grayblue text-center">No todo items added.</p>
+                        <p class="py-8 px-5 border-b text-center border-light_lightergrayblue dark:border-grayblue">No todo items added.</p>
                     </template>
                 </div>
 
                 <div class="flex justify-between text-sm font-semibold py-4 px-5">
                     <div>
-                        <span x-text="todoItems.length"></span> items <span x-show="todoItems.length >= 1">left</span>
+                        <span x-text="itemsTodoLeft()"></span> items <span x-show="todoItems.length >= 1">left</span>
                     </div>
                     <div>
-                        <button>Clear completed</button>
+                        <button @click="clearCompletedTodo()">Clear completed</button>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,9 @@
   "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "js": "rollup -c -w"
   },
   "keywords": [],
   "author": "",
