@@ -11,6 +11,13 @@ module.exports = {
         letterSpacing: {
             widest: '.5em',
         },
+        container: {
+            padding: '1.5rem',
+            center: true,
+            screens: {
+                md: '600px',
+            },
+        },
         extend: {
             colors: {
                 primary: '#3a7bfd',

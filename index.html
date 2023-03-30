@@ -15,24 +15,26 @@
 
 <body x-data="AddTodo"
       class="flex flex-col min-h-screen bg-light_lightgray text-light_grayblue dark:bg-darkestblue dark:text-grayblue">
-    <header class="py-12 px-6 bg-cover bg-[url('../images/bg-mobile-light.jpg')] dark:bg-[url('../images/bg-mobile-dark.jpg')]">
-        <div x-data class="flex justify-between items-center mb-8">
-            <h1>Todo</h1>
-            <button @click="lightMode =! lightMode">
-                <svg class="fill-white w-6 h-6" viewbox="0 0 26 26">
-                    <use x-show="!lightMode" href="images/icon-sun.svg#icon-sun"></use>
-                    <use x-show="lightMode" href="images/icon-moon.svg#icon-moon"></use>
-                </svg>
-            </button>
-        </div>
+    <header class="py-12 bg-cover bg-[url('../images/bg-mobile-light.jpg')] dark:bg-[url('../images/bg-mobile-dark.jpg')]">
+        <div class="container">
+            <div x-data class="flex justify-between items-center mb-8">
+                <h1>Todo</h1>
+                <button @click="lightMode =! lightMode">
+                    <svg class="fill-white w-6 h-6" viewbox="0 0 26 26">
+                        <use x-show="!lightMode" href="images/icon-sun.svg#icon-sun"></use>
+                        <use x-show="lightMode" href="images/icon-moon.svg#icon-moon"></use>
+                    </svg>
+                </button>
+            </div>
 
-        <!-- Add item -->
-        <input type="text" placeholder="Create a new todo..." @keydown.enter="addTodo()" x-model="newTodo"
-               class="w-full py-3 px-5 rounded-lg dark:bg-darkblue dark:placeholder:text-grayblue dark:focus:text-lightblue">
+            <!-- Add item -->
+            <input type="text" placeholder="Create a new todo..." @keydown.enter="addTodo()" x-model="newTodo"
+                   class="w-full py-3 px-5 rounded-lg focus:text-light_darkergrayblue dark:bg-darkblue dark:placeholder:text-grayblue dark:focus:text-lightblue">
+        </div>
     </header>
 
     <main class="flex-1">
-        <div class="px-6">
+        <div class="container">
             <div class="rounded-lg bg-white -mt-8 dark:bg-darkblue">
                 <div>
                     <template x-for="(todo, index) in todoItems" :key="index">
@@ -47,7 +49,8 @@
                                             <use href="images/icon-check.svg#icon-check"></use>
                                         </svg>
                                     </span>
-                                    <span x-text="todo.text" class="mr-auto cursor-pointer" :class="todo.completed ? 'line-through text-light_lightergrayblue dark:text-grayblue' : 'text-light_darkergrayblue dark:text-lightblue'"></span>
+                                    <span x-text="todo.text" class="mr-auto cursor-pointer"
+                                          :class="todo.completed ? 'line-through text-light_lightergrayblue dark:text-grayblue' : 'text-light_darkergrayblue dark:text-lightblue'"></span>
                                 </div>
                                 <button @click="removeTodo(index)">
                                     <svg class="w-4 h-4 duration-150 dark:fill-grayblue hover:dark:fill-lightblue" viewbox="0 0 18 18">
@@ -72,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="flex justify-center gap-4 py-3 px-6 rounded-lg bg-white my-4 dark:bg-darkblue">
+            <div class="flex justify-center gap-4 py-3 rounded-lg bg-white my-4 dark:bg-darkblue">
                 <span>All</span>
                 <span>Active</span>
                 <span>Completed</span>
