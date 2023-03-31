@@ -3117,10 +3117,8 @@ var addTodo = () => ({
     todoItems: [],
     newTodo: '',
     todoCompleted: false,
-
-    init() {
-        console.log(this.todoItems);
-    },
+    isActive: false,
+    isCompleted: false,
 
     addTodo() {
         this.todoItems.push({
@@ -3149,6 +3147,31 @@ var addTodo = () => ({
 
     clearCompletedTodo() {
         this.todoItems = this.todoItems.map(todo => ({ ...todo, completed: false }));
+    },
+
+    filterTodo() {
+        let results = this.todoItems;
+        let filteredResults = [];
+
+        if (this.isActive) {
+            for (const todo of results) {
+                if (todo.completed === false) {
+                    filteredResults.push(todo);
+                }
+            }
+            results = filteredResults;
+        }
+
+        if (this.isCompleted) {
+            for (const todo of results) {
+                if (todo.completed === true) {
+                    filteredResults.push(todo);
+                }
+            }
+            results = filteredResults;
+        }
+
+        return results;
     },
 });
 

@@ -35,9 +35,9 @@
 
     <main class="flex-1">
         <div class="container">
-            <div class="rounded-lg bg-white -mt-8 dark:bg-darkblue">
+            <div class="rounded-lg bg-white shadow-2xl shadow-neutral-200 -mt-8 dark:bg-darkblue dark:shadow-darkestblue">
                 <div>
-                    <template x-for="(todo, index) in todoItems" :key="index">
+                    <template x-for="(todo, index) in filterTodo" :key="index">
                             <div class="py-4 px-5 border-b border-light_lightergrayblue flex justify-between items-center gap-4 dark:text-lightblue dark:border-grayblue">
                                 <div @click="completeTodo(index)"
                                      class="group flex items-center gap-4">
@@ -53,7 +53,7 @@
                                           :class="todo.completed ? 'line-through text-light_lightergrayblue dark:text-grayblue' : 'text-light_darkergrayblue dark:text-lightblue'"></span>
                                 </div>
                                 <button @click="removeTodo(index)">
-                                    <svg class="w-4 h-4 duration-150 dark:fill-grayblue hover:dark:fill-lightblue" viewbox="0 0 18 18">
+                                    <svg class="w-4 h-4 duration-150 fill-light_lightergrayblue hover:fill-light_darkergrayblue dark:fill-grayblue hover:dark:fill-lightblue" viewbox="0 0 18 18">
                                         <use href="images/icon-cross.svg#icon-cross"></use>
                                     </svg>
                                 </button>
@@ -69,16 +69,23 @@
                     <div>
                         <span x-text="itemsTodoLeft()"></span> items <span x-show="todoItems.length >= 1">left</span>
                     </div>
+
+                    <div class="hidden md:flex md:gap-4 md:ml-12">
+                        <button @click="isActive = false;isCompleted = false" class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue">All</button>
+                        <button @click="isActive = true;isCompleted = false" class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue">Active</button>
+                        <button @click="isCompleted = true; isActive = false" class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue">Completed</button>
+                    </div>
+
                     <div>
                         <button @click="clearCompletedTodo()">Clear completed</button>
                     </div>
                 </div>
             </div>
 
-            <div class="flex justify-center gap-4 py-3 rounded-lg bg-white my-4 dark:bg-darkblue">
-                <span>All</span>
-                <span>Active</span>
-                <span>Completed</span>
+            <div class="flex justify-center gap-4 py-3 rounded-lg bg-white my-4 dark:bg-darkblue md:hidden">
+                <button>All</button>
+                <button>Active</button>
+                <button>Completed</button>
             </div>
 
             <p class="text-center py-8 font-semibold">

@@ -574,6 +574,10 @@ h1 {
   display: inline-flex;
 }
 
+.hidden {
+  display: none;
+}
+
 .h-3 {
   height: 0.75rem;
 }
@@ -669,6 +673,10 @@ h1 {
   background-size: cover;
 }
 
+.fill-light_lightergrayblue {
+  fill: #d2d3db;
+}
+
 .fill-white {
   fill: #fff;
 }
@@ -734,24 +742,19 @@ h1 {
   text-decoration-line: line-through;
 }
 
-.duration-150 {
-  transition-duration: 150ms;
+.shadow-2xl {
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-@media (min-width: 768px) {
-  .md\:container {
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
-  }
+.shadow-neutral-200 {
+  --tw-shadow-color: #e5e5e5;
+  --tw-shadow: var(--tw-shadow-colored);
+}
 
-  @media (min-width: 600px) {
-    .md\:container {
-      max-width: 600px;
-    }
-  }
+.duration-150 {
+  transition-duration: 150ms;
 }
 
 .before\:absolute::before {
@@ -868,6 +871,15 @@ h1 {
   transition-duration: 150ms;
 }
 
+.hover\:fill-light_darkergrayblue:hover {
+  fill: #484b6a;
+}
+
+.hover\:text-light_darkergrayblue:hover {
+  --tw-text-opacity: 1;
+  color: rgb(72 75 106 / var(--tw-text-opacity));
+}
+
 .focus\:text-light_darkergrayblue:focus {
   --tw-text-opacity: 1;
   color: rgb(72 75 106 / var(--tw-text-opacity));
@@ -923,6 +935,11 @@ h1 {
   color: rgb(202 205 232 / var(--tw-text-opacity));
 }
 
+.dark .dark\:shadow-darkestblue {
+  --tw-shadow-color: #161722;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
 .dark .dark\:placeholder\:text-grayblue::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(77 80 102 / var(--tw-text-opacity));
@@ -949,7 +966,30 @@ h1 {
   fill: #cacde8;
 }
 
+.dark .dark\:hover\:text-lightblue:hover {
+  --tw-text-opacity: 1;
+  color: rgb(202 205 232 / var(--tw-text-opacity));
+}
+
 .dark .dark\:focus\:text-lightblue:focus {
   --tw-text-opacity: 1;
   color: rgb(202 205 232 / var(--tw-text-opacity));
+}
+
+@media (min-width: 768px) {
+  .md\:ml-12 {
+    margin-left: 3rem;
+  }
+
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+
+  .md\:gap-4 {
+    gap: 1rem;
+  }
 }
