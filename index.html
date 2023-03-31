@@ -35,10 +35,16 @@
 
     <main class="flex-1">
         <div class="container">
-            <div class="rounded-lg bg-white shadow-2xl shadow-neutral-200 -mt-8 dark:bg-darkblue dark:shadow-darkestblue">
+            <div class="rounded-lg bg-white shadow-2xl shadow-neutral-200 -mt-8 dark:bg-darkblue dark:shadow-darkestblue"
+            x-data="{dragStartIndex: 0, dragEndIndex: 0, changePosition(a,b) {[todoItems[a], todoItems[b]] = [todoItems[b], todoItems[a]]}, indexHover: null}">
                 <div>
                     <template x-for="(todo, index) in filterTodo" :key="index">
-                            <div class="py-4 px-5 border-b border-light_lightergrayblue flex justify-between items-center gap-4 dark:text-lightblue dark:border-grayblue">
+                            <div class="py-4 px-5 border-b border-light_lightergrayblue flex justify-between items-center gap-4 dark:text-lightblue dark:border-grayblue"
+                                 :class="indexHover == index ? 'dark:bg-darkergrayblue cursor-none' : 'cursor-move'"
+                                 draggable="true"
+                                 x-on:dragstart="dragStartIndex = index"
+                                 x-on:dragover.prevent="indexHover = index"
+                                 x-on:drop="dragEndIndex = index; changePosition(dragStartIndex, dragEndIndex); setTimeout(() => indexHover = null, 200)">
                                 <div @click="completeTodo(index)"
                                      class="group flex items-center gap-4">
                                     <span class="box inline-flex justify-center items-center w-6 h-6 rounded-full cursor-pointer relative hover:border-gradient
@@ -70,14 +76,20 @@
                         <span x-text="itemsTodoLeft()"></span> items <span x-show="todoItems.length >= 1">left</span>
                     </div>
 
-                    <div class="hidden md:flex md:gap-4 md:ml-12">
-                        <button @click="isActive = false;isCompleted = false" class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue">All</button>
-                        <button @click="isActive = true;isCompleted = false" class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue">Active</button>
-                        <button @click="isCompleted = true; isActive = false" class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue">Completed</button>
+                    <div x-show="todoItems.length > 1" class="hidden md:flex md:gap-4 md:ml-12">
+                        <button @click="isActive = false;isCompleted = false"
+                                class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue"
+                                :class="isActive || isCompleted ? 'text-grayblue' : 'text-primary'">All</button>
+                        <button @click="isActive = true;isCompleted = false"
+                                class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue"
+                                :class="isActive ? 'text-primary' : ''">Active</button>
+                        <button @click="isCompleted = true; isActive = false"
+                                class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue"
+                                :class="isCompleted ? 'text-primary' : ''">Completed</button>
                     </div>
 
                     <div>
-                        <button @click="clearCompletedTodo()">Clear completed</button>
+                        <button @click="clearCompletedTodo()" class="hover:text-light_darkergrayblue dark:hover:text-lightblue">Clear completed</button>
                     </div>
                 </div>
             </div>
