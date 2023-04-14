@@ -3119,6 +3119,10 @@ var addTodo = () => ({
     todoCompleted: false,
     isActive: false,
     isCompleted: false,
+    completedTrue: (element) => element.completed === true,
+    checkForCompletedItems: function() {
+       return this.todoItems.some(this.completedTrue);
+    },
 
     addTodo() {
         this.todoItems.push({
@@ -3170,7 +3174,6 @@ var addTodo = () => ({
             }
             results = filteredResults;
         }
-
         return results;
     },
 });

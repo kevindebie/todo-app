@@ -84,8 +84,9 @@
                                 class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue"
                                 :class="isActive ? 'text-primary' : ''">Active</button>
                         <button @click="isCompleted = true; isActive = false"
-                                class="duration-150 hover:text-light_darkergrayblue dark:hover:text-lightblue"
-                                :class="isCompleted ? 'text-primary' : ''">Completed</button>
+                                class="duration-150 hover:text-light_darkergrayblue disabled:hover:text-light_grayblue dark:hover:text-lightblue dark:disabled:hover:text-grayblue"
+                                :class="isCompleted ? 'text-primary' : ''"
+                                :disabled="!checkForCompletedItems()">Completed</button>
                     </div>
 
                     <div>

@@ -4,12 +4,16 @@ export default () => ({
     todoCompleted: false,
     isActive: false,
     isCompleted: false,
+    completedTrue: (element) => element.completed === true,
+    checkForCompletedItems: function() {
+       return this.todoItems.some(this.completedTrue);
+    },
 
     addTodo() {
         this.todoItems.push({
             text: this.newTodo,
             completed: false
-        })
+        });
 
         this.newTodo = '';
         console.log(this.todoItems);
@@ -55,7 +59,6 @@ export default () => ({
             }
             results = filteredResults;
         }
-
         return results;
     },
 })
