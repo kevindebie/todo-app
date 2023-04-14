@@ -4,9 +4,15 @@ export default () => ({
     todoCompleted: false,
     isActive: false,
     isCompleted: false,
-    completedTrue: (element) => element.completed === true,
-    checkForCompletedItems: function() {
-       return this.todoItems.some(this.completedTrue);
+
+    init() {
+        if(localStorage.getItem('todoItems').length > 0) {
+            this.todoItems = JSON.parse(localStorage.getItem('todoItems'));
+        }
+    },
+
+    updateLocalStorage() {
+        localStorage.setItem('todoItems', JSON.stringify(this.todoItems))
     },
 
     addTodo() {
@@ -17,16 +23,19 @@ export default () => ({
 
         this.newTodo = '';
         console.log(this.todoItems);
+        this.updateLocalStorage();
     },
 
     removeTodo(index) {
         this.todoItems = this.todoItems.filter((todo, todoIndex) => {
             return index !== todoIndex
         })
+        this.updateLocalStorage();
     },
 
     completeTodo(index) {
         this.todoItems[index].completed = !this.todoItems[index].completed;
+        this.updateLocalStorage();
     },
 
     itemsTodoLeft() {
@@ -60,5 +69,10 @@ export default () => ({
             results = filteredResults;
         }
         return results;
+    },
+
+    checkForCompletedItems() {
+        const completedTrue = (element) => element.completed === true;
+        return this.todoItems.some(completedTrue);
     },
 })
