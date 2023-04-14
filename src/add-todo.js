@@ -6,8 +6,10 @@ export default () => ({
     isCompleted: false,
 
     init() {
-        if(localStorage.getItem('todoItems').length > 0) {
-            this.todoItems = JSON.parse(localStorage.getItem('todoItems'));
+        if (localStorage.getItem('todoItems')) {
+            if (localStorage.getItem('todoItems').length > 0) {
+                this.todoItems = JSON.parse(localStorage.getItem('todoItems'));
+            }
         }
     },
 
@@ -31,6 +33,10 @@ export default () => ({
             return index !== todoIndex
         })
         this.updateLocalStorage();
+
+        if (localStorage.getItem('todoItems').length <= 2) {
+            localStorage.removeItem('todoItems');
+        }
     },
 
     completeTodo(index) {

@@ -3121,8 +3121,10 @@ var addTodo = () => ({
     isCompleted: false,
 
     init() {
-        if(localStorage.getItem('todoItems').length > 0) {
-            this.todoItems = JSON.parse(localStorage.getItem('todoItems'));
+        if (localStorage.getItem('todoItems')) {
+            if (localStorage.getItem('todoItems').length > 0) {
+                this.todoItems = JSON.parse(localStorage.getItem('todoItems'));
+            }
         }
     },
 
@@ -3146,6 +3148,10 @@ var addTodo = () => ({
             return index !== todoIndex
         });
         this.updateLocalStorage();
+
+        if (localStorage.getItem('todoItems').length <= 2) {
+            localStorage.removeItem('todoItems');
+        }
     },
 
     completeTodo(index) {
